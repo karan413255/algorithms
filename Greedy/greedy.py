@@ -143,3 +143,55 @@ def twoArrays(k, A, B):
             return "NO"
     return "YES"
 
+# Medium https://www.hackerrank.com/challenges/pylons/problem (HALF SOLVED)
+
+def pylons(k, arr):
+    count = 0
+    distance = 0
+    new_arr = [i for i in range(0,len(arr)) if arr[i] == 1]
+    # print(new_arr)
+    count = 0
+    distance = 0
+    # new_arr.sort(reverse=True)
+    # if len(arr) - new_arr[0]
+    
+    count_value = 0
+    min_t = min(new_arr)
+    max_t = len(arr)
+    flag = True
+    if min_t>(k-1):
+        return -1
+    distance = k-1
+    while flag:
+        if distance in new_arr:
+            count+=1
+            count_value = distance
+            flag = False
+            # print("1 found")
+        else:
+            distance-=1
+    # print(distance)
+    distance+=2*k-1
+    # print(distance)
+    for i,value in enumerate(new_arr):
+        if distance>max_t:
+            break
+        if value==distance:
+            count+=1
+            count_value = distance
+            # print("next found 1")
+            distance=new_arr[i]+2*k-1
+            
+        elif value>distance:
+            if new_arr[i-1]<=count_value:
+                return -1
+            count+=1
+            count_value = distance
+            # print("next found 2")
+            distance=new_arr[i-1]+2*k-1
+    if max_t > distance:
+        if distance+k-1<max_t:
+            return -1
+        count+=1
+            
+    return count
